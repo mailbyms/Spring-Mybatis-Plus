@@ -9,3 +9,13 @@ spring:
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #开启SQL语句打印
+    global-config:
+      # snowflake
+      workerId: 2
+      # snowflake
+      datacenterId: 1
+      db-config:
+        logic-delete-field: deleted # 全局逻辑删除的实体字段名
+        logic-delete-value: 1 # (default: 1))
+        logic-not-delete-value: 0 # (default: 0))
+

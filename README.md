@@ -50,5 +50,16 @@
   - 可以配置的项见官方说明：<https://baomidou.com/pages/981406/>
   - 注意 `builder.parent()`，生成代码的输出目录
   - 运行后会生成 controller, service, mapper（包括 xml 文件）和 entity 
-- 增加 UserTest 单元测试
+- 增加单元测试代码 UserTest
     
+## 高级特性
+- 表 ID 使用 snowflake 算法
+  - 项目配置文件 `application.yml` 增加 dataCenterId 和 workerId，否则随机
+  - 生成的实体/entity 类，在字段上增加注解 `@TableId(type = IdType.ASSIGN_ID)` 和 `@JsonFormat(shape = JsonFormat.Shape.STRING)`
+    - 前者指定是 snowflake 算法，后者序列化时返回字符串格式，防止 web 前端丢失精度
+  - 执行单元测试代码 UserTest.testInsert。可以看到自动生成 snowflake ID
+- 逻辑删除
+  - 数据库表增加 deleted 字段，重新生成代码；
+  - 项目配置文件增加全局定义（也可以针对单个表，在实体类的对应字段上使用 @TableLogic(value = "0", delval = "1")
+- 分页
+- 字段脱敏、多租户、多数据源（与 sharding sphere 类似）

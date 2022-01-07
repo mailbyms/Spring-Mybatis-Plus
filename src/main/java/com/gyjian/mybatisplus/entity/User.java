@@ -1,5 +1,9 @@
 package com.gyjian.mybatisplus.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -9,7 +13,7 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author mybatis-plus
- * @since 2022-01-06
+ * @since 2022-01-07
  */
 public class User implements Serializable {
 
@@ -18,7 +22,9 @@ public class User implements Serializable {
     /**
      * 主键
      */
-      private Long id;
+    @TableId(type = IdType.ASSIGN_ID)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private Long id;
 
     /**
      * 姓名
@@ -44,6 +50,11 @@ public class User implements Serializable {
      * 创建时间
      */
     private LocalDateTime createTime;
+
+    /**
+     * 逻辑删除标识,0-未删除,1-已删除
+     */
+    private Integer deleted;
 
 
     public Long getId() {
@@ -94,6 +105,14 @@ public class User implements Serializable {
         this.createTime = createTime;
     }
 
+    public Integer getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Integer deleted) {
+        this.deleted = deleted;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -103,6 +122,7 @@ public class User implements Serializable {
         ", email=" + email +
         ", managerId=" + managerId +
         ", createTime=" + createTime +
+        ", deleted=" + deleted +
         "}";
     }
 }
